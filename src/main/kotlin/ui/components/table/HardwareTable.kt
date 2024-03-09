@@ -10,6 +10,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import api.BackendClient
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import model.Hardware
 import ui.screens.Screen
 
@@ -47,9 +51,20 @@ fun HardwareHeader(
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.subtitle1
         )
+        Text(
+            text = "Update",
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.subtitle1
+        )
+        Text(
+            text = "Delete",
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.subtitle1
+        )
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun HardwareRowComposable(
     index: Int,
@@ -84,11 +99,22 @@ fun HardwareRowComposable(
             modifier = Modifier.weight(1f),
             style = MaterialTheme.typography.body1
         )
-        Button(onClick = {
-            AppState.selectedHardware = hardware
-            AppState.currentScreen = Screen.HARDWARE_UPDATE}
+        Button(
+            onClick = {
+                AppState.selectedHardware = hardware
+                AppState.currentScreen = Screen.HARDWARE_UPDATE
+            }, modifier = Modifier.weight(1f)
         ) {
-            Text("Go to Details")
+            Text("Update")
+        }
+        Button(onClick = {
+            println(hardware)
+            GlobalScope.launch {
+                BackendClient.deleteHardware(hardware)
+            }
+        }
+        ) {
+            Text("Delete")
         }
     }
 }

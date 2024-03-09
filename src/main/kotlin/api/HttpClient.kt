@@ -31,13 +31,21 @@ object BackendClient {
         return gson.fromJson(body, Hardware::class.java)
     }
 
-    suspend fun putNewHardware(hardware: Hardware): Hardware {
+    suspend fun putUpdatedHardware(hardware: Hardware): Hardware {
         val body = client.put("http://localhost:8081/hardware") {
             contentType(ContentType.Application.Json)
             body = gson.toJson(hardware)
         }.body<String>()
         println(body)
         return gson.fromJson(body, Hardware::class.java)
+    }
+
+    suspend fun deleteHardware(hardware: Hardware) {
+        val body = client.delete("http://localhost:8081/hardware/${hardware.code}") {
+//            contentType(ContentType.Application.Json)
+//            body = gson.toJson(hardware)
+        }.body<String>()
+        println(body)
     }
 }
 

@@ -15,7 +15,7 @@ fun HardwareUpdate(onNavigate: (Screen) -> Unit) {
         hardware = AppState.selectedHardware,
         onSubmit = { hardware ->
         GlobalScope.launch {
-            BackendClient.putNewHardware(hardware)
+            BackendClient.putUpdatedHardware(hardware)
         }
         onNavigate(Screen.HARDWARE)
     })

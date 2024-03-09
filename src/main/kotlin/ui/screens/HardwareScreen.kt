@@ -13,11 +13,8 @@ import ui.components.table.DisplayHardware
 @Composable
 fun HardwareScreen(onNavigate: (Screen) -> Unit) {
 
-    var hardwares by remember { mutableStateOf(emptyList<Hardware>()) }
-
     val scope = rememberCoroutineScope()
-
-    LaunchedEffect(hardwares) {
+      LaunchedEffect(hardwares) {
         scope.launch {
             try {
                 hardwares = BackendClient.getAllHardware()

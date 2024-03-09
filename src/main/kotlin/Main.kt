@@ -12,11 +12,6 @@ import ui.screens.HardwareScreen
 import ui.screens.HardwareUpdate
 import ui.screens.Screen
 
-object AppState {
-    var selectedHardware: Hardware? by mutableStateOf(null)
-    var currentScreen: Screen by mutableStateOf(Screen.HARDWARE)
-}
-
 @Composable
 @Preview
 fun App() {
